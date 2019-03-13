@@ -8,8 +8,27 @@ public class Client {
 	
 	private Stack<Book> basket;
 
-	public Client() {
-			// TODO Auto-generated constructor stub
+	public Client(String id) {
+		this.id = id;
+		this.basket = null;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public Stack<Book> getBasket() {
+		return basket;
+	}
+
+	public void setBasket(Stack<Book> basket) {
+		this.basket = basket;
+	}
+	
+	
 
 }

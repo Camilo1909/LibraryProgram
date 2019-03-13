@@ -4,7 +4,10 @@ import java.util.Optional;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;
+import model.Client;
 
 public class IndexController {
 	
@@ -23,24 +26,28 @@ public class IndexController {
 	
 	@FXML
     void newClient(ActionEvent event) {
-		TextInputDialog dialog = new TextInputDialog("walter");
-		dialog.setTitle("Text Input Dialog");
-		dialog.setHeaderText("Look, a Text Input Dialog");
-		dialog.setContentText("Please enter your name:");
+		TextInputDialog dialog = new TextInputDialog();
+		dialog.setTitle("NEW CLIENT");
+		dialog.setHeaderText("NEW CLIENT ALERT");
+		dialog.setContentText("Please enter your id:");
 
-		// Traditional way to get the response value.
+		
 		Optional<String> result = dialog.showAndWait();
-		if (result.isPresent()){
-		    System.out.println("Your name: " + result.get());
-		}
+		
 
 		// The Java 8 way to get the response value (with lambda expression).
-		result.ifPresent(name -> System.out.println("Your name: " + name));
+		result.ifPresent(id -> Main.getLibrary().getInitialClients().add(new Client(id)));
+		
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("DONE");
+		alert.setContentText("Client added");
+		alert.showAndWait();
+		
     }
 
     @FXML
     void pay(ActionEvent event) {
-
+    	
     }
 	
 }

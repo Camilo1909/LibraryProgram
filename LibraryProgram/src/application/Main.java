@@ -10,14 +10,14 @@ import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
 	
-	private Library library;
+	private static Library library;
 	
 	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("Index.fxml"));
-			Scene scene = new Scene(root,400,400);
+			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -27,14 +27,13 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
+		library = new Library();
 		launch(args);
 	}
 
-	public Library getLibrary() {
+	public static Library getLibrary() {
 		return library;
 	}
 
-	public void setLibrary(Library library) {
-		this.library = library;
-	}
+	
 }
