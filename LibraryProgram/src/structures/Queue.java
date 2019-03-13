@@ -17,31 +17,51 @@ public class Queue<T> implements IQueue<T> {
 	@Override
 	public T element() {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public boolean offer(T element) {
 		// TODO Auto-generated method stub
-		return false;
+		
+		 Node<T> oldlast = last;
+	        last = new Node<T>(element);
+	        //last.item = item;
+	        last.setNext(null); 
+	        if (isEmpty()) first = last;
+	        
+	        else oldlast.setNext(last);
+	        size++;
+		
+		return true;
 	}
 
 	@Override
-	public T peek() {
-		// TODO Auto-generated method stub
-		return null;
+	public T peek() throws NoSuchElementException {
+		if (isEmpty()) throw new NoSuchElementException("Queue underflow");
+        Node<T> node = (Node<T>) first.getValue();
+        return (T)node;
 	}
 
 	@Override
-	public T poll() {
-		// TODO Auto-generated method stub
-		return null;
+	public T poll() throws NoSuchElementException {
+		if (isEmpty()) throw new NoSuchElementException("Queue underflow");
+        Node<T> node = (Node<T>) first.getValue();
+        first = first.getNext();
+        size--;
+        if (isEmpty()) last = null;   // to avoid loitering
+        return (T)node;
 	}
 
 	@Override
 	public T remove() {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return (first == null);
 	}
 
 }

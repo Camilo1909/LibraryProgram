@@ -4,9 +4,9 @@ public interface IQueue<T> {
 
 	 	T element();
 	    boolean offer(T element);
-	    T peek();
-	    T poll();
+	    T peek() throws NoSuchElementException;
+	    T poll() throws NoSuchElementException;
 	    T remove();
-
+	    boolean isEmpty();
 
 }
