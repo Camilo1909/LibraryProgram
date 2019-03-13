@@ -1,8 +1,8 @@
 package model;
 
-public class Basket {
+public class Library {
 
-	public Basket() {
+	public Library() {
 		// TODO Auto-generated constructor stub
 	}
 

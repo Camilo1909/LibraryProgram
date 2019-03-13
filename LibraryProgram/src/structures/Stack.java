@@ -8,31 +8,46 @@ public class Stack<T> implements IStack<T>  {
 	
 	
 	public Stack() {
-		// TODO Auto-generated constructor stub
+		this.top = null;
+		this.size = 0;
+	}
+
+	
+	
+	public int getSize() {
+		return size;
+	}
+	
+	@Override
+	public boolean isEmpty() {
+		return top == null;
 	}
 
 	@Override
-	public boolean empty() {
-		// TODO Auto-generated method stub
-		return false;
+	public T peek() throws NoSuchElementException {
+		 if (isEmpty()) throw new NoSuchElementException("Stack underflow");
+	        return top.getValue();
 	}
 
 	@Override
-	public T peek() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public T pop() {
-		// TODO Auto-generated method stub
-		return null;
+	public T pop() throws NoSuchElementException {
+		if (isEmpty()) throw new NoSuchElementException("Stack underflow");
+        T element = top.getValue();     // save item to return
+        top = top.getNext();            // delete first node
+        size--;
+        return element;
 	}
 
 	@Override
 	public T push(T element) {
-		// TODO Auto-generated method stub
-		return null;
+		Node<T> oldfirst = top;
+	    top = new Node<T>(element);
+	    top.setNext(oldfirst);
+	    size++;
+		
+		
+		return element;
+		
 	}
 
 	@Override

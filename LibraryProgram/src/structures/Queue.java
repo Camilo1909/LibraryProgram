@@ -40,8 +40,7 @@ public class Queue<T> implements IQueue<T> {
 	@Override
 	public T peek() throws NoSuchElementException {
 		if (isEmpty()) throw new NoSuchElementException("Queue underflow");
-        Node<T> node = (Node<T>) first.getValue();
-        return (T)node;
+        return (T) first;
 	}
 
 	@Override
