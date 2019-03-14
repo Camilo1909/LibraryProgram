@@ -14,7 +14,7 @@ public class Library {
 	
 	private Queue<Client> queueClients;
 	
-	private HashTable<String,Integer> bookshelves;
+	private HashTable<String,Book> bookshelves;
 	
 	private ArrayList<Client> initialClients;
 	
@@ -42,12 +42,15 @@ public class Library {
 	}
 
 
-	public HashTable<String, Integer> getBookshelves() {
+	
+
+
+	public HashTable<String, Book> getBookshelves() {
 		return bookshelves;
 	}
 
 
-	public void setBookshelves(HashTable<String, Integer> bookshelves) {
+	public void setBookshelves(HashTable<String, Book> bookshelves) {
 		this.bookshelves = bookshelves;
 	}
 

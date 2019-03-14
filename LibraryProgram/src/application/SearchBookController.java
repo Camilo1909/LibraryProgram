@@ -10,17 +10,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Book;
 
 public class SearchBookController {
 
 	@FXML
-	private TextField Isbn;
+	private TextField isbn;
 
 	@FXML
 	private TextField price;
 
 	@FXML
-	private TextField total;
+	private TextField amount;
 
 	@FXML
 	void addBook(ActionEvent event) {
@@ -40,7 +41,11 @@ public class SearchBookController {
 
 	@FXML
 	void searchISBN(ActionEvent event) {
-
+		if(!isbn.getText().isEmpty()) {
+			Book book = Main.getLibrary().getBookshelves().get(isbn.getText());
+			//price.setText(book.getPrice());
+			//amount.setText(book.get);
+		}
 	}
 	
 }
