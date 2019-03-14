@@ -10,7 +10,8 @@ public class Client {
 
 	public Client(String id) {
 		this.id = id;
-		this.basket = null;
+		this.basket = new Stack<Book>();
+		
 	}
 
 	public String getId() {

@@ -22,10 +22,23 @@ public class SearchBookController {
 
 	@FXML
 	private TextField amount;
+	
+	private Book actualBook;
+	
 
 	@FXML
 	void addBook(ActionEvent event) {
-
+		if(!isbn.getText().isEmpty()){
+			if(Main.getLibrary().getActualClient()!=null) {
+				if(actualBook.getAmount() > 0) {
+					Main.getLibrary().getActualClient().getBasket().push(actualBook);
+					actualBook.decreaseAmount();
+					amount.setText(actualBook.getAmount() + "");
+				}else {
+					//Tirar  LA excpecion
+				}
+			} 
+		}
 	}
 
 	@FXML
@@ -42,9 +55,9 @@ public class SearchBookController {
 	@FXML
 	void searchISBN(ActionEvent event) {
 		if(!isbn.getText().isEmpty()) {
-			Book book = Main.getLibrary().getBookshelves().get(isbn.getText());
-			//price.setText(book.getPrice());
-			//amount.setText(book.get);
+			actualBook = Main.getLibrary().getBookshelves().get(isbn.getText());
+			price.setText(actualBook.getPrice() + "");
+			amount.setText(actualBook.getAmount() + "");
 		}
 	}
 	

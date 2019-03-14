@@ -46,9 +46,13 @@ public class IndexController {
 		
 		Optional<String> result = dialog.showAndWait();
 		
-
-		// The Java 8 way to get the response value (with lambda expression).
-		result.ifPresent(id -> Main.getLibrary().getInitialClients().add(new Client(id)));
+		if (result.isPresent()){
+		    String id = result.get();
+		    Client newClient = new Client(id);
+		    Main.getLibrary().getInitialClients().add(newClient);
+		    Main.getLibrary().setActualClient(newClient);
+		}
+		
 		
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("DONE");
