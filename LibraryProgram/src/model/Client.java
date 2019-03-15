@@ -2,11 +2,13 @@ package model;
 
 import structures.Stack;
 
-public class Client {
+public class Client implements Comparable<Client> {
 	
 	private String id;
 	
 	private Stack<Book> basket;
+	
+	private int queuePos;
 
 	public Client(String id) {
 		this.id = id;
@@ -28,6 +30,23 @@ public class Client {
 
 	public void setBasket(Stack<Book> basket) {
 		this.basket = basket;
+	}
+
+	public int getQueuePos() {
+		return queuePos;
+	}
+
+	public void setQueuePos(int queuePos) {
+		this.queuePos = queuePos;
+	}
+
+	@Override
+	public int compareTo(Client c1) {
+		if(this.getQueuePos() > c1.getQueuePos()) {
+			return 1;
+		}else {
+			return -1;
+		}
 	}
 	
 	

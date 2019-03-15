@@ -74,6 +74,37 @@ public class Library {
 		return null;
 	}
 	
+	
+	
+	public void setQueueToPay() {
+		for(int i = 0; i < initialClients.size(); i++) {
+			initialClients.get(i).setQueuePos(calculateQueuePos(i+1,initialClients.get(i).getBasket().getSize()));
+		}
+		ArrayList<Client> aux = sortClients();
+		for(int j = 0; j < aux.size(); j++) {
+			queueClients.offer(aux.get(j));
+		}
+	}
+	
+	public int calculateQueuePos(int posArray, int numBooks) {
+		return posArray +  numBooks;
+	}
+	
+	public ArrayList<Client> sortClients(){
+		ArrayList<Client> clone = (ArrayList<Client>) initialClients.clone();
+		for (int i = 1; i < clone.size(); i++) {
+			for (int j = clone.size() - 1; j >= i; j--) {
+				if(clone.get(j).compareTo(clone.get(j-1)) >0) {
+					Client aux = clone.get(j);
+					clone.set(j,clone.get(j-1));
+					clone.set(j-1,aux);
+				}
+			}
+		}
+		return clone;
+	}
+	
+	
 	public Queue<Client> getQueueClients() {
 		return queueClients;
 	}
