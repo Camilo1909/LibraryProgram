@@ -16,6 +16,7 @@ public class Library {
 	
 	private Queue<Client> queueClients;
 	
+	
 	private HashTable<String,Book> bookshelves;
 	
 	private ArrayList<Client> initialClients;
