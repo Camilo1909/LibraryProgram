@@ -2,6 +2,7 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
@@ -17,7 +18,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.Book;
 import model.Client;
+import structures.NoSuchElementException;
+import structures.Queue;
+import structures.Stack;
 
 public class SelectClientController implements Initializable {
 	
@@ -37,9 +42,57 @@ public class SelectClientController implements Initializable {
 		for(int i = 0; i < Main.getLibrary().getInitialClients().size(); i++) {
 			listClients.getItems().add(Main.getLibrary().getInitialClients().get(i).getId());
 		}
+		
+		//onMouseClickedList();
 			
+			
+	
 		
 	}
+	
+	
+	private void onMouseClickedList() {
+		listClients.setOnMouseClicked(e->{
+			if(!listClients.getSelectionModel().getSelectedItem().isEmpty()) {
+				String idClient = listClients.getSelectionModel().getSelectedItem();
+				actualClient = Main.getLibrary().searchActualClient(idClient);
+				try {
+					Stack<Book> books = Main.getLibrary().cloneStack(actualClient);
+				
+					ArrayList<Book> booksArray = new ArrayList<Book>();
+					
+					
+					Queue<Book> tempQueue = new Queue<Book>();
+					
+					while(!books.isEmpty()) {
+						tempQueue.offer(books.pop());
+						System.out.println("IN");
+					}
+					
+					while(tempQueue.isEmpty()) {
+						booksArray.add(tempQueue.poll());
+					}
+					
+					for (int i = booksArray.size() - 1; i > 0; i--) {
+						booksClients.getItems().add(booksArray.get(i).getIsbn() + booksArray.get(i).getAmount() + "");
+						books.push(booksArray.get(i));
+					}
+					
+//					while(!books.isEmpty()) {
+//						Book actualBook = books.pop();
+//						
+//						booksClients.getItems().add(actualBook.getIsbn() + actualBook.getAmount() + "");
+//					}
+					
+					
+				} catch (NoSuchElementException ed) {
+					System.out.println(ed.getMessage());
+				}
+				
+			}
+		});
+	}
+	
 
 	@FXML
 	private ListView<String> listClients;
@@ -61,8 +114,8 @@ public class SelectClientController implements Initializable {
     @FXML
     void takeBook(ActionEvent event) throws IOException {
     	try {
-    	String idClient = listClients.getSelectionModel().getSelectedItem();
-		actualClient = Main.getLibrary().searchActualClient(idClient);
+    		String idClient = listClients.getSelectionModel().getSelectedItem();
+			actualClient = Main.getLibrary().searchActualClient(idClient);
 		if(actualClient!=null) Main.getLibrary().setActualClient(actualClient);
     	FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/application/SearchBook.fxml"));

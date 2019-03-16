@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import structures.HashTable;
+import structures.NoSuchElementException;
 import structures.Queue;
+import structures.Stack;
 
 public class Library {
 
@@ -103,6 +105,23 @@ public class Library {
 			}
 		}
 		return clone;
+	}
+	
+	
+	public Stack<Book> cloneStack(Client client) throws NoSuchElementException{
+		Stack<Book> temp = client.getBasket();
+		Stack<Book> toReturn = new Stack<Book>();
+		Stack<Book> tempStack = new Stack<Book>();
+		while(!temp.isEmpty()) {
+			tempStack.push(temp.pop());
+		}
+		while(!tempStack.isEmpty()) {
+			toReturn.push(tempStack.pop());
+		}
+		
+		client.setBasket(toReturn);
+		
+		return toReturn;
 	}
 	
 	
