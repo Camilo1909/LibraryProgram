@@ -23,7 +23,11 @@ public class Library {
 	
 	private ArrayList<Client> initialClients;
 	
+	private ArrayList<Client> already;
+	
 	private Client actualClient;
+	
+	private CashRegister[] csc;
 	
 	public Library() {
 		queueClients = null;
@@ -32,6 +36,7 @@ public class Library {
 		queueClients = new Queue<Client>();
 		actualClient = null;
 		initialClients = new ArrayList<Client>();
+		already = new ArrayList<Client>();
 		try {
 			loadData();
 		} catch (FileNotFoundException e) {
@@ -124,6 +129,29 @@ public class Library {
 		return toReturn;
 	}
 	
+	public void addAlready(Client client) {
+		already.add(client);
+	}
+	
+	public void createCashRegister(int n) {
+		csc = new CashRegister[n];
+	}
+	
+	public String showInformation(){
+		String cadena = "";
+		for(int i = 0 ; i<already.size();i++ ) {
+			cadena += (i+1) + ". " + already.get(i).getId() + "\n";
+			for(int j = 0; i<already.get(i).getBag().getSize();i++) {
+				try {
+					cadena += "- " + already.get(i).getBag().pop()+ "\n";
+				} catch (NoSuchElementException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return cadena;
+	}
 	
 	public Queue<Client> getQueueClients() {
 		return queueClients;
@@ -163,10 +191,13 @@ public class Library {
 	public void setActualClient(Client actualClient) {
 		this.actualClient = actualClient;
 	}
-
-
 	
+	public ArrayList<Client> getAlready(){
+		return already;
+	}
 	
-	
+	public CashRegister[] getCsc() {
+		return csc;
+	}
 
 }

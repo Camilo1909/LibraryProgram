@@ -8,11 +8,14 @@ public class Client implements Comparable<Client> {
 	
 	private Stack<Book> basket;
 	
+	private Stack<Book> bag;
+	
 	private int queuePos;
 
 	public Client(String id) {
 		this.id = id;
 		this.basket = new Stack<Book>();
+		this.bag = new Stack<Book>();
 		
 	}
 
@@ -30,6 +33,14 @@ public class Client implements Comparable<Client> {
 
 	public void setBasket(Stack<Book> basket) {
 		this.basket = basket;
+	}
+	
+	public Stack<Book> getBag() {
+		return bag;
+	}
+
+	public void setBag(Stack<Book> bag) {
+		this.bag = bag;
 	}
 
 	public int getQueuePos() {
