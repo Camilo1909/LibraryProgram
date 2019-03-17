@@ -1,18 +1,22 @@
 package application;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Book;
 
-public class SearchBookController {
+public class SearchBookController implements Initializable {
 
 	@FXML
 	private TextField isbn;
@@ -24,6 +28,9 @@ public class SearchBookController {
 	private TextField amount;
 	
 	private Book actualBook;
+	
+	@FXML
+	private ListView<String> ISBNBooks;
 	
 
 	@FXML
@@ -59,6 +66,12 @@ public class SearchBookController {
 			price.setText(actualBook.getPrice() + "");
 			amount.setText(actualBook.getAmount() + "");
 		}
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

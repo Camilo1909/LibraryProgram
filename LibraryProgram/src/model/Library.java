@@ -1,8 +1,6 @@
 package model;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,7 +15,6 @@ public class Library {
 
 	
 	private Queue<Client> queueClients;
-	
 	
 	private HashTable<String,Book> bookshelves;
 	
@@ -37,6 +34,7 @@ public class Library {
 		actualClient = null;
 		initialClients = new ArrayList<Client>();
 		already = new ArrayList<Client>();
+		csc = new CashRegister[2];
 		try {
 			loadData();
 		} catch (FileNotFoundException e) {
@@ -198,6 +196,48 @@ public class Library {
 	
 	public CashRegister[] getCsc() {
 		return csc;
+	}
+	
+	
+	
+	public void pay() throws NoSuchElementException {
+	
+		setQueueToPay();
+		//Hasta que no hayan clientes
+		boolean ready = false;
+		
+		while(!ready) {
+			
+			//Llenar todas las cajas
+			for(int j = 0; j < csc.length; j++) {
+				if(!queueClients.isEmpty() && csc[j].isEmpty()) {
+					csc[j].setClient(queueClients.poll());
+					csc[j].setEmpty(false);
+				}
+			}
+			
+			//Pasar primer libro 
+			for(int k = 0; k < csc.length && !queueClients.isEmpty(); k++) {
+				Client aux = csc[k].getClient();
+				
+				//Si tiene libros pasa el primero
+				if(!aux.getBasket().isEmpty()) {
+					aux.getBag().push(aux.getBasket().pop());
+					Book book = aux.getBag().peek();
+					aux.setSaldo(book.getPrice());
+					aux.setQueuePos(1);
+				} else { //si no tiene, pasa a la lista de pagado y la caja vuelve a estar vacía
+					already.add(aux);
+					csc[k].setEmpty(true);
+					csc[k].setClient(null);
+				}
+			}
+			
+			if(queueClients.isEmpty()) {
+				ready = true;
+			}
+		}
+		
 	}
 
 }

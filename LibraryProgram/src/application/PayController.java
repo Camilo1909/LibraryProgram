@@ -16,7 +16,7 @@ public class PayController implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		information.setText(Main.getLibrary().showInformation());	
+		information.setText(Main.getLibrary().showInformation());
 	}
 	
 }

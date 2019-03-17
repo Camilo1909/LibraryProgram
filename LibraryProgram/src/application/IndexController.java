@@ -65,7 +65,7 @@ public class IndexController {
     }
 
     @FXML
-    void pay(ActionEvent event) {
+    void pay(ActionEvent event) throws NoSuchElementException {
     	TextInputDialog dialog = new TextInputDialog();
 		dialog.setTitle("ChashRegister");
 		dialog.setHeaderText("CASH REGISTER ALERT");
@@ -74,10 +74,11 @@ public class IndexController {
 		Optional<String> result = dialog.showAndWait();
 	
 		if (result.isPresent()){
-			String id = result.get();
-			int n = Integer.parseInt(id);
-	    	Main.getLibrary().createCashRegister(n);
-	    	auxPay(n);
+			//String id = result.get();
+			//int n = Integer.parseInt(id);
+	    	//Main.getLibrary().createCashRegister(n);
+//	    	auxPay(n);
+	    	Main.getLibrary().pay();
 	    	try {
 	    	FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/application/Pay.fxml"));

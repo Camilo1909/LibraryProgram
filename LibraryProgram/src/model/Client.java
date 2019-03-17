@@ -10,6 +10,8 @@ public class Client implements Comparable<Client> {
 	
 	private Stack<Book> bag;
 	
+	private double saldo;
+	
 	private int queuePos;
 
 	public Client(String id) {
@@ -58,6 +60,14 @@ public class Client implements Comparable<Client> {
 		}else {
 			return -1;
 		}
+	}
+
+	public double getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(double saldo) {
+		this.saldo += saldo;
 	}
 	
 	
