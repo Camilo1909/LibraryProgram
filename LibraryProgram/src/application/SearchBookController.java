@@ -11,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -42,7 +44,9 @@ public class SearchBookController implements Initializable {
 					actualBook.decreaseAmount();
 					amount.setText(actualBook.getAmount() + "");
 				}else {
-					//Tirar  LA excpecion
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setContentText("No hay mas de estos libros");
+					alert.show();
 				}
 			} 
 		}

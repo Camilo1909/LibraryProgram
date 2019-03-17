@@ -18,7 +18,7 @@ public class Client implements Comparable<Client> {
 		this.id = id;
 		this.basket = new Stack<Book>();
 		this.bag = new Stack<Book>();
-		
+		queuePos = 0;
 	}
 
 	public String getId() {
@@ -50,7 +50,7 @@ public class Client implements Comparable<Client> {
 	}
 
 	public void setQueuePos(int queuePos) {
-		this.queuePos = queuePos;
+		this.queuePos += queuePos;
 	}
 
 	@Override

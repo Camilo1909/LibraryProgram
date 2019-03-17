@@ -141,10 +141,11 @@ public class Library {
 	public String showInformation(){
 		String cadena = "";
 		for(int i = 0 ; i<already.size();i++ ) {
-			cadena += (i+1) + ". " + already.get(i).getId() + "\n";
-			for(int j = 0; i<already.get(i).getBag().getSize();i++) {
+			
+			cadena += (i+1) + ". " + already.get(i).getId() + " Saldo: " + already.get(i).getSaldo() + "Tiempo: " + already.get(i).getQueuePos() + "\n";
+			while(!already.get(i).getBag().isEmpty()) {
 				try {
-					cadena += "- " + already.get(i).getBag().pop()+ "\n";
+					cadena += "- " + already.get(i).getBag().pop().getIsbn()+ "\n";
 				} catch (NoSuchElementException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -212,34 +213,52 @@ public class Library {
 			
 			//Llenar todas las cajas
 			for(int j = 0; j < csc.length; j++) {
-				if(!queueClients.isEmpty() && csc[j].isEmpty()) {
+				if(!queueClients.isEmpty() && csc[j].getClient()==null) {
 					csc[j].setClient(queueClients.poll());
-					csc[j].setEmpty(false);
 				}
 			}
 			
 			//Pasar primer libro 
-			for(int k = 0; k < csc.length && !queueClients.isEmpty(); k++) {
-				Client aux = csc[k].getClient();
+			for(int k = 0; k < csc.length; k++) {
 				
-				//Si tiene libros pasa el primero
-				if(!aux.getBasket().isEmpty()) {
-					aux.getBag().push(aux.getBasket().pop());
-					Book book = aux.getBag().peek();
-					aux.setSaldo(book.getPrice());
-					aux.setQueuePos(1);
-				} else { //si no tiene, pasa a la lista de pagado y la caja vuelve a estar vacía
-					already.add(aux);
-					csc[k].setEmpty(true);
-					csc[k].setClient(null);
+				if(csc[k].getClient() != null) {
+					Client aux = csc[k].getClient();
+					
+					//Si tiene libros pasa el primero
+					if(!aux.getBasket().isEmpty()) {
+						Book book = aux.getBasket().peek();
+						aux.getBag().push(aux.getBasket().pop());
+						aux.setSaldo(book.getPrice());
+						aux.setQueuePos(1);
+					} else { //si no tiene, pasa a la lista de pagado y la caja vuelve a estar vacía
+						already.add(aux);
+						csc[k].setClient(null);
+					}
+				}
+				
+			}
+			
+			int account = 0;
+			if(queueClients.isEmpty()) {
+				for(int i = 0; i < csc.length; i++) {
+					if(csc[i].getClient() == null) {
+						account++;
+					}
+				}
+				
+				if(account == csc.length) {
+					ready = true;
 				}
 			}
 			
-			if(queueClients.isEmpty()) {
-				ready = true;
-			}
 		}
 		
+	}
+	
+	public void reiniciarPrograma() {
+		initialClients = new ArrayList<Client>();
+		already = new ArrayList<Client>();
+		queueClients = null;
 	}
 
 }

@@ -5,24 +5,13 @@ import structures.NoSuchElementException;
 public class CashRegister {
 	
 	String name;
-	private boolean empty;
 
 	private Client client;
 	
 	public CashRegister() {
-		empty = true;
 		client = null;
 	}
 	
-	
-	public boolean isEmpty() {
-		return empty;
-	}
-
-	public void setEmpty(boolean empty) {
-		this.empty = empty;
-	}
-
 	public Client getClient() {
 		return client;
 	}
