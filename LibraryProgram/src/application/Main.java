@@ -12,7 +12,6 @@ public class Main extends Application {
 	
 	private static Library library;
 	
-	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
