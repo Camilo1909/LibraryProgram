@@ -142,7 +142,7 @@ public class Library {
 		String cadena = "";
 		for(int i = 0 ; i<already.size();i++ ) {
 			
-			cadena += (i+1) + ". " + already.get(i).getId() + " Saldo: " + already.get(i).getSaldo() + "Tiempo: " + already.get(i).getQueuePos() + "\n";
+			cadena += (i+1) + ". " + already.get(i).getId() + " Saldo: " + already.get(i).getSaldo() + " Tiempo: " + already.get(i).getQueuePos() + "\n";
 			while(!already.get(i).getBag().isEmpty()) {
 				try {
 					cadena += "- " + already.get(i).getBag().pop().getIsbn()+ "\n";
