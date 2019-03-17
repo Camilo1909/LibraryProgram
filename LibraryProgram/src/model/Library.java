@@ -34,7 +34,10 @@ public class Library {
 		actualClient = null;
 		initialClients = new ArrayList<Client>();
 		already = new ArrayList<Client>();
-		csc = new CashRegister[2];
+		csc = new CashRegister[3];
+		csc[0] = new CashRegister();
+		csc[1] = new CashRegister();
+		csc[2] = new CashRegister();
 		try {
 			loadData();
 		} catch (FileNotFoundException e) {
@@ -98,12 +101,12 @@ public class Library {
 	
 	public ArrayList<Client> sortClients(){
 		ArrayList<Client> clone = (ArrayList<Client>) initialClients.clone();
-		for (int i = 1; i < clone.size(); i++) {
-			for (int j = clone.size() - 1; j >= i; j--) {
-				if(clone.get(j).compareTo(clone.get(j-1)) >0) {
-					Client aux = clone.get(j);
-					clone.set(j,clone.get(j-1));
-					clone.set(j-1,aux);
+		for (int i = 0; i < clone.size()-1; i++) {
+			for (int j = 1; j < clone.size(); j++) {
+				if(clone.get(i).compareTo(clone.get(j)) >0) {
+					Client aux = clone.get(i);
+					clone.set(i,clone.get(j));
+					clone.set(j,aux);
 				}
 			}
 		}
@@ -202,7 +205,6 @@ public class Library {
 	
 	public void pay() throws NoSuchElementException {
 	
-		setQueueToPay();
 		//Hasta que no hayan clientes
 		boolean ready = false;
 		

@@ -66,32 +66,42 @@ public class IndexController {
 
     @FXML
     void pay(ActionEvent event) throws NoSuchElementException {
-    	TextInputDialog dialog = new TextInputDialog();
-		dialog.setTitle("ChashRegister");
-		dialog.setHeaderText("CASH REGISTER ALERT");
-		dialog.setContentText("Please enter the number of desired cash register: ");
-    
-		Optional<String> result = dialog.showAndWait();
+    	
+    	Main.getLibrary().setQueueToPay();
+    	
+    	if(Main.getLibrary().getQueueClients().isEmpty()) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setContentText("No hay clientes en la cola");
+    		alert.show();
+    	} else {
+//    		TextInputDialog dialog = new TextInputDialog();
+//    		dialog.setTitle("ChashRegister");
+//    		dialog.setHeaderText("CASH REGISTER ALERT");
+//    		dialog.setContentText("Please enter the number of desired cash register: ");
+//    
+//    		Optional<String> result = dialog.showAndWait();
 	
-		if (result.isPresent()){
+//    		if (result.isPresent()){
 			//String id = result.get();
 			//int n = Integer.parseInt(id);
 	    	//Main.getLibrary().createCashRegister(n);
 //	    	auxPay(n);
-	    	Main.getLibrary().pay();
-	    	try {
-	    	FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/application/Pay.fxml"));
-			Parent root = (Parent) loader.load();
-			Scene scene = new Scene(root);
-			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			stage.setScene(scene);
-			stage.show();
-	    	}catch(Exception e) {
-	    		e.printStackTrace();
-	    	}
+    			Main.getLibrary().pay();
+    			try {
+    				FXMLLoader loader = new FXMLLoader();
+    				loader.setLocation(getClass().getResource("/application/Pay.fxml"));
+    				Parent root = (Parent) loader.load();
+    				Scene scene = new Scene(root);
+    				Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    				stage.setScene(scene);
+    				stage.show();
+    			}catch(Exception e) {
+    				e.printStackTrace();
+    			}
 	    	
-		}
+//    		} 
+		
+    	}
     }
     
     private void auxPay(int n) {
